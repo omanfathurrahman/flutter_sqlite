@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqlite/tambah_saham.dart';
+import 'package:sqlite/update_saham.dart';
 import 'sqlite_service.dart';
 import 'package:sqlite/models/saham.dart';
 
@@ -59,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadUlang() {
+    print('tes');
     setState(() {});
   }
 
@@ -71,6 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       return false;
     }
+  }
+
+  void editData(Saham sahamEdit) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            UpdateSaham(saham: sahamEdit, onPressed: loadUlang),
+      ),
+    );
   }
 
   @override
@@ -98,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   key: ValueKey<int>(snapshot.data![index].tickerid!),
                   child: Card(
                     child: ListTile(
+                        onTap: () => editData(snapshot.data![index]),
                         contentPadding: const EdgeInsets.all(8.0),
                         title: Text(snapshot.data![index].ticker,
                             style: TextStyle(

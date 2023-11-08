@@ -30,4 +30,14 @@ class DatabaseHandler {
     final List<Map<String, Object?>> queryResult = await db.query('saham');
     return queryResult.map((e) => Saham.fromMap(e)).toList();
   }
+
+  Future<int> updateSaham(Saham saham) async {
+    final Database db = await initializeDB();
+    return await db.update(
+      'saham',
+      saham.toMap(),
+      where: 'tickerid = ?',
+      whereArgs: [saham.tickerid],
+    );
+  }
 }
